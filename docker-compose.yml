@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: fastfood
+      POSTGRES_PASSWORD: fastfood
+      POSTGRES_DB: pedidos
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://fastfood:fastfood@db:5432/pedidos
