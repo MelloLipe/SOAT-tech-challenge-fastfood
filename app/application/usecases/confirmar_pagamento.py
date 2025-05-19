@@ -1,7 +1,5 @@
-# app/application/usecases/confirmar_pagamento.py
 from app.domain.repositories.pedido_repository import PedidoRepository
 from app.domain.entities.pedido import PedidoStatus
-
 
 class ConfirmarPagamento:
     def __init__(self, pedido_repo: PedidoRepository):
@@ -13,13 +11,9 @@ class ConfirmarPagamento:
             raise Exception("Pedido não encontrado.")
 
         if pedido.status != PedidoStatus.FINALIZADO:
-            raise Exception("Pedido deve estar FINALIZADO para confirmar pagamento.")
+            raise Exception("Pagamento só pode ser confirmado após o pedido ser FINALIZADO.")
 
-        # Confirma pagamento
         pedido.status = PedidoStatus.PAGO
-
-        # Envia automaticamente para cozinha
-        pedido.status = PedidoStatus.ENVIADO
-
+        pedido.status = PedidoStatus.ENVIADO  # Política automática: envia à cozinha após pagar
         self.pedido_repo.salvar(pedido)
         return pedido
