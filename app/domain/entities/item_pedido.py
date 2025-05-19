@@ -1,4 +1,3 @@
-# app/domain/entities/item_pedido.py
 
 
 class ItemPedido:

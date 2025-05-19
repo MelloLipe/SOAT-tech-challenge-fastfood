@@ -1,4 +1,3 @@
-# app/application/usecases/buscar_produtos_categoria.py
 from app.domain.repositories.produto_repository import ProdutoRepository
 
 

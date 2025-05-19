@@ -1,4 +1,3 @@
-# app/domain/entities/produto.py
 import uuid
 
 

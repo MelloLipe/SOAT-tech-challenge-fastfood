@@ -1,4 +1,3 @@
-# app/application/dtos/pedido_dto.py
 from __future__ import annotations
 
 from pydantic import BaseModel

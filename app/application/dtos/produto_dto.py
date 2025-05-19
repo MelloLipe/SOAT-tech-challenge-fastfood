@@ -1,4 +1,3 @@
-# app/application/dtos/produto_dto.py
 from pydantic import BaseModel
 
 

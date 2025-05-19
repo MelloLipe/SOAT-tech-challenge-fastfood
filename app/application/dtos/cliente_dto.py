@@ -1,4 +1,3 @@
-# app/application/dtos/cliente_dto.py
 from pydantic import BaseModel
 
 

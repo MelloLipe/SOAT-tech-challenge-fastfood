@@ -1,94 +1,65 @@
 
-# FastFood Backend - SOAT Tech Challenge Fase 1
+# FastFood API - SOAT Tech Challenge
 
-Este projeto implementa o sistema de autoatendimento para uma lanchonete em expansão, conforme os requisitos do desafio proposto na Fase 1 do Tech Challenge da SOAT.
+Este projeto é uma API para um sistema de autoatendimento de lanchonete, desenvolvida com FastAPI, utilizando arquitetura hexagonal e DDD.
 
----
+## ✅ Funcionalidades Atendidas
 
-## 📦 Tecnologias Utilizadas
+- Cadastro de clientes (`POST /clientes`)
+- Identificação de clientes por CPF (`GET /clientes/{cpf}`)
+- Criar, editar e remover produtos
+    - `POST /produtos`
+    - `PUT /produtos/{id}`
+    - `DELETE /produtos/{id}`
+- Buscar produtos por categoria (`GET /produtos/categoria/{categoria}`)
+- **Fake checkout** (`POST /pedidos/{id}/checkout`)
+    - O pedido é finalizado e enviado para a "fila" (memória)
+    - Não há integração com pagamento real
+- Listagem de pedidos (`GET /pedidos`)
+- Interface HTML para testes (`test_interface_full.html`)
 
-- Python 3.11
-- FastAPI
-- Docker e Docker Compose
-- PostgreSQL (pronto para migração futura)
-- Swagger (OpenAPI) para documentação de APIs
+## 📦 Fake Checkout (Requisito V)
 
----
-
-## 🧱 Estrutura do Projeto
+O endpoint abaixo simula a finalização do pedido, **enviando os produtos escolhidos para a fila**, conforme o requisito da Fase 1:
 
 ```
-app/
-├── main.py                  # Ponto de entrada FastAPI
-├── domain/                 # Entidades e repositórios
-├── application/            # Casos de uso
-├── infrastructure/         # Controllers, persistência fake/mock
-├── config.py               # Configurações gerais
-Dockerfile
-docker-compose.yml
-requirements.txt
-swagger.yaml
+POST /pedidos/{pedido_id}/checkout
 ```
 
----
+Este endpoint:
+- Marca o pedido como `FINALIZADO`
+- Não exige pagamento
+- Simula o envio do pedido para a preparação
 
-## 🚀 Como Executar Localmente
+## 💡 Extras Implementados
 
-### Pré-requisitos
+- Controle de status (RECEBIDO, EM_PREPARACAO, PRONTO)
+- Simulação de pagamento (QR Code fictício)
+- Diagrama de arquitetura e fluxo de eventos
+- Interface HTML visual para teste de todos os endpoints
+- Eventos de domínio (DDD)
 
-- Docker
-- Docker Compose
+## ▶️ Como rodar localmente
 
-### Passos
+1. Suba com Docker:
 
-```bash
-# 1. Clone o repositório
-git clone <url-do-repo>
-cd <nome-do-repo>
-
-# 2. Suba o ambiente
+```
 docker-compose up --build
+```
 
-# 3. Acesse a API
+2. Acesse a documentação:
+
+```
 http://localhost:3000/docs
 ```
 
----
+3. Abra o painel de testes:
 
-## 🔌 Principais Endpoints
+Abra o arquivo `test_interface_full.html` com Live Server ou navegador.
 
-- `POST /clientes` - Cadastro de cliente
-- `GET /clientes/{cpf}` - Identificação de cliente via CPF
-- `POST /produtos` - Criar produto
-- `GET /produtos/categoria/{categoria}` - Buscar por categoria
-- `POST /pedidos` - Criar pedido
-- `POST /pedidos/adicionar-produto` - Adicionar produto ao pedido
-- `POST /pedidos/{pedido_id}/checkout` - Finalizar pedido
-- `POST /pedidos/{pedido_id}/confirmar-pagamento` - Confirmar pagamento
-- `PATCH /pedidos/{pedido_id}/status` - Atualizar status do pedido
-- `GET /pedidos/ativos` - Listar pedidos em andamento
+## 📁 Estrutura do Projeto
 
-Para mais detalhes, consulte o arquivo [`swagger.yaml`](./swagger.yaml).
-
----
-
-## 🧪 Testes e Validação
-
-- Utilize o Swagger em `http://localhost:3000/docs`
-- Ou importe `swagger.yaml` no Swagger Editor ou Postman
-
----
-
-## 📄 Entrega
-
-- Código-fonte hospedado em repositório privado
-- Adicionar `soat-architecture` como colaborador
-- Incluir link do vídeo demonstrando o sistema via Docker
-- Submeter documentação e diagrama no Portal do Aluno
-
----
-
-## 👥 Participantes
-
-- Felipe Mello Lima - Discord: @melloFelipe
-
+- `app/` - código principal da aplicação
+- `README.md` - este arquivo
+- `swagger.yaml` - documentação OpenAPI
+- `index.html`, `test_interface_full.html` - interfaces HTML de testes

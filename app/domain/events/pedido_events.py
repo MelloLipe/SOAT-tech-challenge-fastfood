@@ -1,4 +1,3 @@
-# app/domain/events/pedido_events.py
 
 class PedidoIniciado:
     def __init__(self, pedido_id: str):

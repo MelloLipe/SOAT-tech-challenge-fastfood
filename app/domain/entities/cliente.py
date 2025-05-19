@@ -1,4 +1,3 @@
-# app/domain/entities/cliente.py
 import uuid
 
 

@@ -1,4 +1,3 @@
-# app/application/usecases/identificar_cliente.py
 from app.domain.repositories.cliente_repository import ClienteRepository
 
 

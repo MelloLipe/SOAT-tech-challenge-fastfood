@@ -1,4 +1,3 @@
-# app/infrastructure/persistence/db.py
 from app.domain.repositories.pedido_repository import PedidoRepository
 from app.domain.entities.pedido import Pedido
 from app.domain.repositories.cliente_repository import ClienteRepository

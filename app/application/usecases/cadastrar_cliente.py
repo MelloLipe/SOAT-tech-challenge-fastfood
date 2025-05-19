@@ -1,4 +1,3 @@
-# app/application/usecases/cadastrar_cliente.py
 from app.domain.entities.cliente import Cliente
 from app.domain.repositories.cliente_repository import ClienteRepository
 

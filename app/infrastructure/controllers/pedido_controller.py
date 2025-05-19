@@ -43,27 +43,37 @@ def listar_pedidos_ativos():
         } for p in pedidos
     ]
 
-@router.patch("/{pedido_id}/status")
-def atualizar_status(pedido_id: str, novo_status: str):
-    use_case = AtualizarStatusPedido(pedido_repo_instance)
-    pedido = use_case.execute(pedido_id, novo_status)
-    return {
-        "id": pedido.id,
-        "status": pedido.status
-    }
-
-@router.post("/{pedido_id}/pagamento")
-def gerar_pagamento(pedido_id: str):
-    use_case = GerarPagamento(pedido_repo_instance, MercadoPagoService())
-    resultado = use_case.execute(pedido_id)
-    return resultado
-
-@router.post("/{pedido_id}/confirmar-pagamento")
-def confirmar_pagamento(pedido_id: str):
-    use_case = ConfirmarPagamento(pedido_repo_instance)
+@router.post("/{pedido_id}/checkout")
+def finalizar_pedido(pedido_id: str):
+    use_case = FinalizarPedido(pedido_repo_instance)
     pedido = use_case.execute(pedido_id)
     return {
         "id": pedido.id,
         "status": pedido.status,
         "total": pedido.total
     }
+
+# @router.patch("/{pedido_id}/status")
+# def atualizar_status(pedido_id: str, novo_status: str):
+#     use_case = AtualizarStatusPedido(pedido_repo_instance)
+#     pedido = use_case.execute(pedido_id, novo_status)
+#     return {
+#         "id": pedido.id,
+#         "status": pedido.status
+#     }
+#
+# @router.post("/{pedido_id}/pagamento")
+# def gerar_pagamento(pedido_id: str):
+#     use_case = GerarPagamento(pedido_repo_instance, MercadoPagoService())
+#     resultado = use_case.execute(pedido_id)
+#     return resultado
+#
+# @router.post("/{pedido_id}/confirmar-pagamento")
+# def confirmar_pagamento(pedido_id: str):
+#     use_case = ConfirmarPagamento(pedido_repo_instance)
+#     pedido = use_case.execute(pedido_id)
+#     return {
+#         "id": pedido.id,
+#         "status": pedido.status,
+#         "total": pedido.total
+#     }

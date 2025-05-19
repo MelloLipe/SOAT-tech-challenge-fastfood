@@ -1,4 +1,3 @@
-# app/domain/repositories/pedido_repository.py
 from abc import ABC, abstractmethod
 from app.domain.entities.pedido import Pedido
 

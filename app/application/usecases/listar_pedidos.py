@@ -1,4 +1,3 @@
-# app/application/usecases/listar_pedidos.py
 from app.domain.repositories.pedido_repository import PedidoRepository
 
 

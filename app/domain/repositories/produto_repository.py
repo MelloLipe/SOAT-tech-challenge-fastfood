@@ -1,4 +1,3 @@
-# app/domain/repositories/produto_repository.py
 from abc import ABC, abstractmethod
 from app.domain.entities.produto import Produto
 

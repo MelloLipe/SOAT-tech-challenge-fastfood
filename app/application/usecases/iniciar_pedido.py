@@ -1,4 +1,3 @@
-# app/application/usecases/iniciar_pedido.py
 from app.domain.entities.pedido import Pedido
 from app.domain.repositories.pedido_repository import PedidoRepository
 

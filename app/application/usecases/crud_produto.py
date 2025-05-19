@@ -1,4 +1,3 @@
-# app/application/usecases/crud_produto.py
 from app.domain.entities.produto import Produto
 from app.domain.repositories.produto_repository import ProdutoRepository
 

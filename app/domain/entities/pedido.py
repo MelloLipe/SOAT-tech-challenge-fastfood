@@ -1,4 +1,3 @@
-# app/domain/entities/pedido.py
 import uuid
 from datetime import datetime
 from typing import List

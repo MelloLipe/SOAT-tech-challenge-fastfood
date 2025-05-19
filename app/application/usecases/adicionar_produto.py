@@ -1,4 +1,3 @@
-# app/application/usecases/adicionar_produto.py
 from app.domain.repositories.pedido_repository import PedidoRepository
 from app.domain.entities.item_pedido import ItemPedido
 

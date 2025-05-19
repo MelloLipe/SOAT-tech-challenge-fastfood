@@ -1,4 +1,3 @@
-# app/application/usecases/finalizar_pedido.py
 from app.domain.repositories.pedido_repository import PedidoRepository
 
 
