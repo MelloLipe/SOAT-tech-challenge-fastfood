@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
   title: FastFood API
   version: "1.0.0"
-  description: API do sistema de autoatendimento para lanchonete - SOAT Tech Challenge
+  description: API do sistema de autoatendimento para lanchonete - Fase 1
 
 paths:
   /clientes:
@@ -24,7 +24,8 @@ paths:
                   type: string
       responses:
         '200':
-          description: Cliente cadastrado
+          description: Cliente cadastrado com sucesso
+
   /clientes/{cpf}:
     get:
       summary: Buscar cliente por CPF
@@ -36,7 +37,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Dados do cliente
+          description: Dados do cliente retornados
 
   /produtos:
     post:
@@ -61,6 +62,49 @@ paths:
       responses:
         '200':
           description: Produto criado
+
+  /produtos/{id}:
+    put:
+      summary: Editar produto
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                descricao:
+                  type: string
+                preco:
+                  type: number
+                categoria:
+                  type: string
+                imagem_url:
+                  type: string
+      responses:
+        '200':
+          description: Produto atualizado
+
+    delete:
+      summary: Remover produto
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Produto removido
+
   /produtos/categoria/{categoria}:
     get:
       summary: Buscar produtos por categoria
@@ -72,12 +116,13 @@ paths:
             type: string
       responses:
         '200':
-          description: Lista de produtos
+          description: Lista de produtos por categoria
 
   /pedidos:
     post:
       summary: Criar pedido
       requestBody:
+        required: false
         content:
           application/json:
             schema:
@@ -88,6 +133,12 @@ paths:
       responses:
         '200':
           description: Pedido criado
+
+    get:
+      summary: Listar todos os pedidos
+      responses:
+        '200':
+          description: Lista de pedidos
 
   /pedidos/adicionar-produto:
     post:
@@ -113,11 +164,11 @@ paths:
                   type: integer
       responses:
         '200':
-          description: Produto adicionado
+          description: Produto adicionado ao pedido
 
   /pedidos/{pedido_id}/checkout:
     post:
-      summary: Finalizar pedido (fake checkout)
+      summary: Fake checkout - Finalizar pedido
       parameters:
         - in: path
           name: pedido_id
@@ -126,59 +177,4 @@ paths:
             type: string
       responses:
         '200':
-          description: Pedido finalizado
-
-  /pedidos/{pedido_id}/pagamento:
-    post:
-      summary: Gerar QR Code de pagamento
-      parameters:
-        - in: path
-          name: pedido_id
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: QR Code gerado
-
-  /pedidos/{pedido_id}/confirmar-pagamento:
-    post:
-      summary: Confirmar pagamento do pedido
-      parameters:
-        - in: path
-          name: pedido_id
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Pagamento confirmado e pedido enviado à cozinha
-
-  /pedidos/{pedido_id}/status:
-    patch:
-      summary: Atualizar status do pedido
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                novo_status:
-                  type: string
-      parameters:
-        - in: path
-          name: pedido_id
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Status atualizado
-
-  /pedidos/ativos:
-    get:
-      summary: Listar pedidos em andamento
-      responses:
-        '200':
-          description: Lista de pedidos não finalizados
+          description: Pedido finalizado (fake checkout)
