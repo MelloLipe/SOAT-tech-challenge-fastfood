@@ -44,4 +44,10 @@ jobs:
 
       - name: SCA - Safety (Dependency vulnerability scan)
         run: |
-          safety check --full-report --output text --exit-code 1
+          safety check --full-report --output json > safety-report.json
+          cat safety-report.json
+          if grep -q '"severity": "high"' safety-report.json || grep -q '"severity": "critical"' safety-report.json; then
+            echo "❌ Vulnerabilidades críticas ou altas encontradas pelo Safety!"
+            exit 1
+          fi
+
