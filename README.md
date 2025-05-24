@@ -51,4 +51,4 @@ http://localhost:3000/docs
 - `README.md` - este arquivo
 - `swagger.yaml` - documentação OpenAPI
 
-![Arquitetura](2025, 20_15_15.png)
+![Arquitetura](docs/funcionamento.png)
