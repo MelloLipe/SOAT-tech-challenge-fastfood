@@ -41,6 +41,3 @@ jobs:
         run: |
           pip install safety
           safety check --full-report --output text
-
-      - name: Show Python Version
-        run: python --version
