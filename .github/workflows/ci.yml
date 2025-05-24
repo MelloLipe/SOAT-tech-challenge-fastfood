@@ -44,7 +44,8 @@ jobs:
 
       - name: SCA - Safety (Dependency vulnerability scan)
         run: |
-          pip install safety jq
+          sudo apt-get update && sudo apt-get install -y jq
+          pip install safety
           safety scan --json > safety-report.json
           cat safety-report.json
           if jq -e '.vulnerabilities[] | select(.severity == "critical" or .severity == "high")' safety-report.json > /dev/null; then
@@ -53,6 +54,7 @@ jobs:
           else
             echo "✅ Nenhuma vulnerabilidade crítica detectada pelo Safety."
           fi
+
 
 
 
