@@ -44,10 +44,10 @@ jobs:
 
       - name: SCA - Safety (Dependency vulnerability scan)
         run: |
-          pip install safety
+          pip install safety jq
           safety scan --json > safety-report.json
           cat safety-report.json
-          if grep -q '"severity": "high"' safety-report.json || grep -q '"severity": "critical"' safety-report.json; then
+          if jq -e '.vulnerabilities[] | select(.severity == "critical" or .severity == "high")' safety-report.json > /dev/null; then
             echo "❌ Vulnerabilidades críticas ou altas encontradas pelo Safety!"
             exit 1
           else
