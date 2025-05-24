@@ -42,18 +42,11 @@ jobs:
             echo "✅ Nenhuma vulnerabilidade crítica detectada pelo Bandit."
           fi
 
-      - name: SCA - Safety (Dependency vulnerability scan)
+      - name: SCA - Safety (modo legado)
         run: |
-          sudo apt-get update && sudo apt-get install -y jq
           pip install safety
-          safety scan --json > safety-report.json
-          cat safety-report.json
-          if jq -e '.vulnerabilities[] | select(.severity == "critical" or .severity == "high")' safety-report.json > /dev/null; then
-            echo "❌ Vulnerabilidades críticas ou altas encontradas pelo Safety!"
-            exit 1
-          else
-            echo "✅ Nenhuma vulnerabilidade crítica detectada pelo Safety."
-          fi
+          safety check --output text || (echo "❌ Vulnerabilidades encontradas!" && exit 1)
+
 
 
 
