@@ -50,3 +50,5 @@ http://localhost:3000/docs
 - `app/` - código principal da aplicação
 - `README.md` - este arquivo
 - `swagger.yaml` - documentação OpenAPI
+
+![Arquitetura](2025, 20_15_15.png)
