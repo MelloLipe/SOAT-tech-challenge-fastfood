@@ -25,10 +25,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install pytest
 
-      - name: Run Unit Tests
+      - name: Run Automated Tests
         run: |
-          echo "No unit tests defined yet. Add pytest/unittest here if needed."
+          pytest tests --maxfail=1 --disable-warnings -q
 
       - name: SAST - Bandit (Static Application Security Testing)
         uses: tj-actions/bandit@v5
