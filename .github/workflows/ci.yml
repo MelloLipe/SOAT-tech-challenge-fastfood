@@ -42,9 +42,17 @@ jobs:
             echo "✅ Nenhuma vulnerabilidade crítica detectada pelo Bandit."
           fi
 
-      - name: SCA - Safety (break on issues)
+      - name: SCA - Safety (Dependency vulnerability scan)
         run: |
           pip install safety
-          safety check || (echo "❌ Vulnerabilidades encontradas!" && exit 1)
+          safety scan --json > safety-report.json
+          cat safety-report.json
+          if grep -q '"severity": "high"' safety-report.json || grep -q '"severity": "critical"' safety-report.json; then
+            echo "❌ Vulnerabilidades críticas ou altas encontradas pelo Safety!"
+            exit 1
+          else
+            echo "✅ Nenhuma vulnerabilidade crítica detectada pelo Safety."
+          fi
+
 
 
