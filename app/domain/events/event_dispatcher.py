@@ -1,4 +1,3 @@
-# app/domain/event_dispatcher.py
 
 class DomainEventDispatcher:
     def __init__(self):

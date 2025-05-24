@@ -1,16 +1,15 @@
-from abc import ABC, abstractmethod
-from app.domain.entities.pedido import Pedido
 
+class PedidoRepository:
+    def __init__(self):
+        self.pedidos = {}
 
-class PedidoRepository(ABC):
-    @abstractmethod
-    def salvar(self, pedido: Pedido):
-        pass
+    def salvar(self, pedido):
+        self.pedidos[pedido.id] = pedido
 
-    @abstractmethod
-    def buscar_por_id(self, pedido_id: str) -> Pedido:
-        pass
+    def buscar_por_id(self, id):
+        return self.pedidos.get(id)
 
-    @abstractmethod
-    def listar_todos(self) -> list[Pedido]:
-        pass
+    def listar_todos(self):
+        return list(self.pedidos.values())
+
+pedido_repo_instance = PedidoRepository()

@@ -1,12 +1,12 @@
-from abc import ABC, abstractmethod
-from app.domain.entities.cliente import Cliente
 
+class ClienteRepository:
+    def __init__(self):
+        self.clientes = {}
 
-class ClienteRepository(ABC):
-    @abstractmethod
-    def salvar(self, cliente: Cliente):
-        pass
+    def salvar(self, cliente):
+        self.clientes[cliente.cpf] = cliente
 
-    @abstractmethod
-    def buscar_por_cpf(self, cpf: str) -> Cliente:
-        pass
+    def buscar_por_cpf(self, cpf):
+        return self.clientes.get(cpf)
+
+cliente_repo_instance = ClienteRepository()

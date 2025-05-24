@@ -8,19 +8,19 @@ from app.infrastructure.controllers.cliente_controller import router as cliente_
 app = FastAPI(
     title="FastFood API",
     version="1.0.0",
-    description="API do sistema de autoatendimento para lanchonete - SOAT Tech Challenge"
+    description="API para autoatendimento de lanchonete"
 )
 
-# ✅ Permitir requisições do frontend (via browser/Live Server)
+# Middleware CORS para permitir requisições do frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Use ["http://localhost:5500"] se quiser restringir
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ✅ Rotas da aplicação
-app.include_router(pedido_router, prefix="/pedidos", tags=["Pedidos"])
-app.include_router(produto_router, prefix="/produtos", tags=["Produtos"])
+# Registro de rotas
 app.include_router(cliente_router, prefix="/clientes", tags=["Clientes"])
+app.include_router(produto_router, prefix="/produtos", tags=["Produtos"])
+app.include_router(pedido_router, prefix="/pedidos", tags=["Pedidos"])

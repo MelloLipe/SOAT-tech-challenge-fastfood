@@ -1,23 +1,21 @@
-from fastapi import APIRouter, HTTPException
-from app.infrastructure.persistence.db import cliente_repo_instance
-from app.application.usecases.cadastrar_cliente import CadastrarCliente
-from app.application.usecases.identificar_cliente import IdentificarCliente
-from app.application.dtos.cliente_dto import ClienteCadastroDTO, ClienteDTO
+from fastapi import APIRouter
+from app.domain.repositories.cliente_repository import cliente_repo_instance
+from app.application.usecases.criar_cliente import CriarCliente
+from app.application.usecases.buscar_cliente_por_cpf import BuscarClientePorCPF
+from app.application.dtos.cliente_dto import CriarClienteDTO
 
 router = APIRouter()
 
 
-@router.post("/", summary="Cadastrar cliente", response_model=ClienteDTO)
-def cadastrar_cliente(dados: ClienteCadastroDTO):
-    use_case = CadastrarCliente(cliente_repo_instance)
-    cliente = use_case.execute(**dados.dict())
-    return cliente
 
+@router.post("/")
+def criar_cliente(cliente: CriarClienteDTO):
+    use_case = CriarCliente(cliente_repo_instance)
+    resultado = use_case.execute(cliente.nome, cliente.email, cliente.cpf)
+    return vars(resultado)
 
-@router.get("/{cpf}", summary="Buscar cliente por CPF", response_model=ClienteDTO)
-def identificar_cliente(cpf: str):
-    use_case = IdentificarCliente(cliente_repo_instance)
-    cliente = use_case.execute(cpf)
-    if not cliente:
-        raise HTTPException(status_code=404, detail="Cliente não encontrado")
-    return cliente
+@router.get("/{cpf}")
+def buscar_cliente(cpf: str):
+    use_case = BuscarClientePorCPF(cliente_repo_instance)
+    resultado = use_case.execute(cpf)
+    return vars(resultado) if resultado else {"erro": "Cliente não encontrado"}

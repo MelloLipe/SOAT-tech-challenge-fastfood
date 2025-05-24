@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 
-
-class ClienteCadastroDTO(BaseModel):
+class CriarClienteDTO(BaseModel):
     nome: str
     email: str
     cpf: str

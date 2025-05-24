@@ -1,16 +1,19 @@
-from abc import ABC, abstractmethod
-from app.domain.entities.produto import Produto
 
+class ProdutoRepository:
+    def __init__(self):
+        self.produtos = {}
 
-class ProdutoRepository(ABC):
-    @abstractmethod
-    def salvar(self, produto: Produto):
-        pass
+    def salvar(self, produto):
+        self.produtos[produto.id] = produto
 
-    @abstractmethod
-    def remover(self, id: str):
-        pass
+    def buscar_por_id(self, id):
+        return self.produtos.get(id)
 
-    @abstractmethod
-    def buscar_por_categoria(self, categoria: str) -> list[Produto]:
-        pass
+    def remover(self, id):
+        if id in self.produtos:
+            del self.produtos[id]
+
+    def buscar_por_categoria(self, categoria):
+        return [p for p in self.produtos.values() if p.categoria == categoria]
+
+produto_repo_instance = ProdutoRepository()
