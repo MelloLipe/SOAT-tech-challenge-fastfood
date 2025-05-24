@@ -52,3 +52,24 @@ http://localhost:3000/docs
 - `swagger.yaml` - documentação OpenAPI
 
 ![Arquitetura](docs/funcionamento.png)
+
+## ✅ Testes Automatizados e Análises de Segurança
+
+Este projeto inclui um pipeline CI configurado com **GitHub Actions** que executa:
+
+### 🧪 Testes Automatizados
+- Framework: `pytest`
+- Local: diretório `/tests`
+- Executado a cada `push`, `pull request` ou `workflow_dispatch` na branch `main`.
+
+### 🔐 Análise Estática de Código (SAST)
+- Ferramenta: [`Bandit`](https://bandit.readthedocs.io/)
+- Avalia falhas de segurança no código Python (`/app`)
+- O pipeline é **interrompido automaticamente** se forem detectadas vulnerabilidades de severidade **média ou alta**.
+
+### 🧩 Análise de Componentes (SCA)
+- Ferramenta: [`Safety`](https://pyup.io/safety/)
+- Avalia dependências vulneráveis listadas em `requirements.txt`
+- O pipeline é **interrompido** se houver dependências com vulnerabilidades conhecidas.
+
+Essas validações garantem mais qualidade e segurança no ciclo de desenvolvimento contínuo.
