@@ -66,7 +66,7 @@ Este projeto inclui um pipeline CI configurado com **GitHub Actions** que execut
 
 ### 🧩 Análise de Componentes (SCA)
 - Ferramenta: [`pip-audit`](https://pyup.io/pip-audit/)
-- Avalia dependências instaladas localmente
+- Avalia dependências instaladas localmente(com OSV)
 - O pipeline é **interrompido** se houver dependências com vulnerabilidades conhecidas.
 
 Essas validações garantem mais qualidade e segurança no ciclo de desenvolvimento contínuo.
