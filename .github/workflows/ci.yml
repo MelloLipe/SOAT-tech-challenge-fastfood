@@ -25,7 +25,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest safety bandit
+          pip install pytest pip-audit bandit
 
       - name: Run Automated Tests
         run: |
@@ -42,12 +42,6 @@ jobs:
             echo "✅ Nenhuma vulnerabilidade crítica detectada pelo Bandit."
           fi
 
-      - name: SCA - Safety (modo legado)
+      - name: SCA - pip-audit (Dependency vulnerability scan)
         run: |
-          pip install safety
-          safety check --output text || (echo "❌ Vulnerabilidades encontradas!" && exit 1)
-
-
-
-
-
+          pip-audit || (echo "❌ Vulnerabilidades encontradas nas dependências!" && exit 1)

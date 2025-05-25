@@ -68,7 +68,7 @@ Este projeto inclui um pipeline CI configurado com **GitHub Actions** que execut
 - O pipeline é **interrompido automaticamente** se forem detectadas vulnerabilidades de severidade **média ou alta**.
 
 ### 🧩 Análise de Componentes (SCA)
-- Ferramenta: [`Safety`](https://pyup.io/safety/)
+- Ferramenta: [`pip-audit`](https://pyup.io/pip-audit/)
 - Avalia dependências vulneráveis listadas em `requirements.txt`
 - O pipeline é **interrompido** se houver dependências com vulnerabilidades conhecidas.
 
