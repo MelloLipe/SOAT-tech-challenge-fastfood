@@ -42,12 +42,13 @@ jobs:
             echo "✅ Nenhuma vulnerabilidade crítica detectada pelo Bandit."
           fi
 
-      - name: SCA - pip-audit (modo local)
+      - name: SCA - pip-audit (modo padrão)
         run: |
-          pip-audit -s pip | tee pip-audit.txt
+          pip-audit | tee pip-audit.txt
           if grep -q "Vulnerability:" pip-audit.txt; then
-            echo "❌ Vulnerabilidades encontradas nas dependências locais!"
+            echo "❌ Vulnerabilidades encontradas nas dependências!"
             exit 1
           else
-            echo "✅ Nenhuma vulnerabilidade detectada localmente."
+            echo "✅ Nenhuma vulnerabilidade detectada."
           fi
+

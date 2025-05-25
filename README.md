@@ -1,4 +1,3 @@
-
 # FastFood API - SOAT Tech Challenge
 
 Este projeto é uma API para um sistema de autoatendimento de lanchonete, desenvolvida com FastAPI, utilizando arquitetura hexagonal e DDD.
@@ -29,7 +28,6 @@ Este endpoint:
 - Marca o pedido como `FINALIZADO`
 - Não exige pagamento
 
-
 ## ▶️ Como rodar localmente
 
 1. Suba com Docker:
@@ -43,7 +41,6 @@ docker-compose up --build
 ```
 http://localhost:3000/docs
 ```
-
 
 ## 📁 Estrutura do Projeto
 
@@ -69,7 +66,7 @@ Este projeto inclui um pipeline CI configurado com **GitHub Actions** que execut
 
 ### 🧩 Análise de Componentes (SCA)
 - Ferramenta: [`pip-audit`](https://pyup.io/pip-audit/)
-- Avalia dependências vulneráveis listadas em `requirements.txt`
+- Avalia dependências instaladas localmente
 - O pipeline é **interrompido** se houver dependências com vulnerabilidades conhecidas.
 
 Essas validações garantem mais qualidade e segurança no ciclo de desenvolvimento contínuo.
