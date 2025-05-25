@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: FastFood API
+  version: "1.0.0"
+  description: API do sistema de autoatendimento para lanchonete - Fase 1
+
+paths:
+  /clientes:
+    post:
+      summary: Cadastrar cliente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                email:
+                  type: string
+                cpf:
+                  type: string
+      responses:
+        '200':
+          description: Cliente cadastrado com sucesso
+
+  /clientes/{cpf}:
+    get:
+      summary: Buscar cliente por CPF
+      parameters:
+        - in: path
+          name: cpf
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Dados do cliente retornados
+
+  /produtos:
+    post:
+      summary: Criar produto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                descricao:
+                  type: string
+                preco:
+                  type: number
+                categoria:
+                  type: string
+                imagem_url:
+                  type: string
+      responses:
+        '200':
+          description: Produto criado
+
+  /produtos/{id}:
+    put:
+      summary: Editar produto
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                descricao:
+                  type: string
+                preco:
+                  type: number
+                categoria:
+                  type: string
+                imagem_url:
+                  type: string
+      responses:
+        '200':
+          description: Produto atualizado
+
+    delete:
+      summary: Remover produto
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Produto removido
+
+  /produtos/categoria/{categoria}:
+    get:
+      summary: Buscar produtos por categoria
+      parameters:
+        - in: path
+          name: categoria
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de produtos por categoria
+
+  /pedidos:
+    post:
+      summary: Criar pedido
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cliente_id:
+                  type: string
+      responses:
+        '200':
+          description: Pedido criado
+
+    get:
+      summary: Listar todos os pedidos
+      responses:
+        '200':
+          description: Lista de pedidos
+
+  /pedidos/adicionar-produto:
+    post:
+      summary: Adicionar produto ao pedido
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pedido_id:
+                  type: string
+                produto_id:
+                  type: string
+                nome:
+                  type: string
+                preco:
+                  type: number
+                categoria:
+                  type: string
+                quantidade:
+                  type: integer
+      responses:
+        '200':
+          description: Produto adicionado ao pedido
+
+  /pedidos/{pedido_id}/checkout:
+    post:
+      summary: Fake checkout - Finalizar pedido
+      parameters:
+        - in: path
+          name: pedido_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Pedido finalizado (fake checkout)

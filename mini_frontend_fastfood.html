@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Front - FastFood API</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
+    section { background: #fff; padding: 15px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 0 5px #ccc; }
+    input, select, button { margin: 5px 0; padding: 8px; width: 100%; }
+    .response { background: #eee; padding: 10px; margin-top: 10px; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <h1>Mini Frontend - FastFood API</h1>
+
+  <section>
+    <h2>1. Criar Cliente</h2>
+    <input type="text" id="nome" placeholder="Nome">
+    <input type="email" id="email" placeholder="Email">
+    <input type="text" id="cpf" placeholder="CPF">
+    <button onclick="criarCliente()">Cadastrar</button>
+    <div class="response" id="res-cliente"></div>
+  </section>
+
+  <section>
+    <h2>2. Criar Produto</h2>
+    <input type="text" id="p-nome" placeholder="Nome">
+    <input type="text" id="p-descricao" placeholder="Descrição">
+    <input type="number" id="p-preco" placeholder="Preço" step="0.01">
+    <select id="p-categoria">
+      <option>LANCHE</option>
+      <option>ACOMPANHAMENTO</option>
+      <option>BEBIDA</option>
+      <option>SOBREMESA</option>
+    </select>
+    <input type="text" id="p-img" placeholder="URL da Imagem (opcional)">
+    <button onclick="criarProduto()">Cadastrar Produto</button>
+    <div class="response" id="res-produto"></div>
+  </section>
+
+  <section>
+    <h2>3. Criar Pedido</h2>
+    <input type="text" id="cli-id" placeholder="ID do Cliente (opcional)">
+    <button onclick="criarPedido()">Criar Pedido</button>
+    <div class="response" id="res-pedido"></div>
+  </section>
+
+  <section>
+    <h2>4. Adicionar Produto ao Pedido</h2>
+    <input type="text" id="pedido-id" placeholder="ID do Pedido">
+    <input type="text" id="produto-id" placeholder="ID do Produto">
+    <input type="text" id="produto-nome" placeholder="Nome do Produto">
+    <input type="number" id="produto-preco" placeholder="Preço" step="0.01">
+    <input type="text" id="produto-categoria" placeholder="Categoria">
+    <input type="number" id="produto-qtd" placeholder="Quantidade">
+    <button onclick="addProduto()">Adicionar Produto</button>
+    <div class="response" id="res-add-prod"></div>
+  </section>
+
+  <section>
+    <h2>5. Finalizar Pedido (Fake Checkout)</h2>
+    <input type="text" id="checkout-id" placeholder="ID do Pedido">
+    <button onclick="checkout()">Finalizar Pedido</button>
+    <div class="response" id="res-checkout"></div>
+  </section>
+
+  <section>
+    <h2>6. Listar Pedidos</h2>
+    <button onclick="listarPedidos()">Listar Todos</button>
+    <div class="response" id="res-listar"></div>
+  </section>
+
+  <script>
+    const api = "http://localhost:3000";
+
+    function criarCliente() {
+      fetch(api + "/clientes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome: document.getElementById("nome").value,
+          email: document.getElementById("email").value,
+          cpf: document.getElementById("cpf").value
+        })
+      }).then(r => r.json()).then(d => document.getElementById("res-cliente").innerText = JSON.stringify(d, null, 2));
+    }
+
+    function criarProduto() {
+      fetch(api + "/produtos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome: document.getElementById("p-nome").value,
+          descricao: document.getElementById("p-descricao").value,
+          preco: parseFloat(document.getElementById("p-preco").value),
+          categoria: document.getElementById("p-categoria").value,
+          imagem_url: document.getElementById("p-img").value
+        })
+      }).then(r => r.json()).then(d => document.getElementById("res-produto").innerText = JSON.stringify(d, null, 2));
+    }
+
+    function criarPedido() {
+      let clienteId = document.getElementById("cli-id").value;
+      fetch(api + "/pedidos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: clienteId ? JSON.stringify({ cliente_id: clienteId }) : null
+      }).then(r => r.json()).then(d => document.getElementById("res-pedido").innerText = JSON.stringify(d, null, 2));
+    }
+
+    function addProduto() {
+      fetch(api + "/pedidos/adicionar-produto", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          pedido_id: document.getElementById("pedido-id").value,
+          produto_id: document.getElementById("produto-id").value,
+          nome: document.getElementById("produto-nome").value,
+          preco: parseFloat(document.getElementById("produto-preco").value),
+          categoria: document.getElementById("produto-categoria").value,
+          quantidade: parseInt(document.getElementById("produto-qtd").value)
+        })
+      }).then(r => r.json()).then(d => document.getElementById("res-add-prod").innerText = JSON.stringify(d, null, 2));
+    }
+
+    function checkout() {
+      let id = document.getElementById("checkout-id").value;
+      fetch(api + "/pedidos/" + id + "/checkout", {
+        method: "POST"
+      }).then(r => r.json()).then(d => document.getElementById("res-checkout").innerText = JSON.stringify(d, null, 2));
+    }
+
+    function listarPedidos() {
+      fetch(api + "/pedidos")
+        .then(r => r.json())
+        .then(d => document.getElementById("res-listar").innerText = JSON.stringify(d, null, 2));
+    }
+  
+    function buscarCliente() {
+      const cpf = document.getElementById("buscar-cpf").value;
+      fetch(api + "/clientes/" + cpf)
+        .then(r => r.json())
+        .then(d => document.getElementById("res-buscar-cliente").innerText = JSON.stringify(d, null, 2));
+    }
+
+    function atualizarProduto() {
+      const id = document.getElementById("up-id").value;
+      const payload = {};
+
+      const campos = ["nome", "descricao", "preco", "categoria", "img"];
+      campos.forEach(campo => {
+        const el = document.getElementById("up-" + campo);
+        if (el && el.value) {
+          payload[campo === "img" ? "imagem_url" : campo] = campo === "preco" ? parseFloat(el.value) : el.value;
+        }
+      });
+
+      fetch(api + "/produtos/" + id, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(r => r.json()).then(d => document.getElementById("res-atualizar-produto").innerText = JSON.stringify(d, null, 2));
+    }
+
+</script>
+
+  <section>
+    <h2>7. Buscar Cliente por CPF</h2>
+    <input type="text" id="buscar-cpf" placeholder="CPF">
+    <button onclick="buscarCliente()">Buscar Cliente</button>
+    <div class="response" id="res-buscar-cliente"></div>
+  </section>
+
+  <section>
+    <h2>8. Atualizar Produto</h2>
+    <input type="text" id="up-id" placeholder="ID do Produto">
+    <input type="text" id="up-nome" placeholder="Nome (opcional)">
+    <input type="text" id="up-descricao" placeholder="Descrição (opcional)">
+    <input type="number" id="up-preco" placeholder="Preço (opcional)" step="0.01">
+    <input type="text" id="up-categoria" placeholder="Categoria (opcional)">
+    <input type="text" id="up-img" placeholder="URL da Imagem (opcional)">
+    <button onclick="atualizarProduto()">Atualizar</button>
+    <div class="response" id="res-atualizar-produto"></div>
+  </section>
+
+</body>
+</html>
