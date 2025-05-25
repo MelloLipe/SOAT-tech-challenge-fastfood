@@ -42,13 +42,14 @@ jobs:
             echo "✅ Nenhuma vulnerabilidade crítica detectada pelo Bandit."
           fi
 
-      - name: SCA - pip-audit (modo padrão)
+      - name: SCA - pip-audit (com OSV)
         run: |
-          pip-audit | tee pip-audit.txt
+          pip-audit --vulnerability-service osv | tee pip-audit.txt
           if grep -q "Vulnerability:" pip-audit.txt; then
-            echo "❌ Vulnerabilidades encontradas nas dependências!"
+            echo "❌ Vulnerabilidades encontradas (OSV)!"
             exit 1
           else
-            echo "✅ Nenhuma vulnerabilidade detectada."
+            echo "✅ Nenhuma vulnerabilidade detectada (via OSV)."
           fi
+
 
