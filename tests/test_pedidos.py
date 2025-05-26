@@ -25,7 +25,7 @@ def test_criar_pedido(repo):
     repo.salvar(pedido)
     assert pedido.id in repo.storage
     assert pedido.cliente_id == "12345678900"
-    assert pedido.status == "RECEBIDO"
+    assert pedido.status == "CRIADO"
 
 def test_adicionar_item_pedido():
     produto = Produto(nome="Suco", descricao="Laranja", preco=6.0, categoria="Bebida")
