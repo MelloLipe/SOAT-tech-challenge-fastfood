@@ -39,7 +39,13 @@ class InMemoryProdutoRepository(ProdutoRepository):
         self.storage = {}
 
     def salvar(self, produto: Produto):
-        self.storage[produto.id] = produto
+        existente = self.storage.get(produto.id)
+        if existente:
+            for attr, value in produto.__dict__.items():
+                if value is not None:
+                    setattr(existente, attr, value)
+        else:
+            self.storage[produto.id] = produto
 
     def remover(self, id: str):
         if id in self.storage:

@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "e64e206f-e501-4d4e-9e44-d9376e0a2e3e",
+		"name": "FastFood API - Fase 1",
+		"description": "Coleção das APIs principais da fase 1 do sistema de autoatendimento",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45283220",
+		"_collection_link": "https://felipe-735711.postman.co/workspace/Felipe's-Workspace~2c5d4ac1-a923-480a-8005-db9197c97a24/collection/45283220-e64e206f-e501-4d4e-9e44-d9376e0a2e3e?action=share&source=collection_link&creator=45283220"
+	},
+	"item": [
+		{
+			"name": "Criar Cliente",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cpf\": \"12345678900\",\n  \"nome\": \"Cliente Teste\",\n  \"email\": \"cliente@teste.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Cliente por CPF",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/clientes/12345678900",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"clientes",
+						"12345678900"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Produto",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nome\": \"Hamburguer\",\n  \"descricao\": \"Picanha com cheddar\",\n  \"preco\": 24.9,\n  \"categoria\": \"Lanche\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/produtos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"produtos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar Produto",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nome\": \"Novo Nome\",\n  \"descricao\": \"Nova descrição\",\n  \"preco\": 29.9,\n  \"categoria\": \"Lanche\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/produtos/ID_DO_PRODUTO",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"produtos",
+						"ID_DO_PRODUTO"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Produtos por Categoria",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/produtos/categoria/Lanche",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"produtos",
+						"categoria",
+						"Lanche"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remover Produto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/produtos/ID_DO_PRODUTO",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"produtos",
+						"ID_DO_PRODUTO"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Pedido",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cliente_id\": \"12345678900\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/pedidos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adicionar Produto ao Pedido",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"pedido_id\": \"ID_DO_PEDIDO\",\n  \"produto_id\": \"ID_DO_PRODUTO\",\n  \"nome\": \"Hamburguer\",\n  \"preco\": 24.9,\n  \"categoria\": \"Lanche\",\n  \"quantidade\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/pedidos/adicionar-produto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pedidos",
+						"adicionar-produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fake Checkout (Finalizar Pedido)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/pedidos/ID_DO_PEDIDO/checkout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"pedidos",
+						"ID_DO_PEDIDO",
+						"checkout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Pedidos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/pedidos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
