@@ -33,7 +33,7 @@ def test_adicionar_item_pedido():
     item = ItemPedido(
         produto_id=produto.id,
         nome=produto.nome,
-        preco_unitario=produto.preco,
+        preco=produto.preco,
         categoria=produto.categoria,
         quantidade=2
     )
@@ -44,7 +44,7 @@ def test_adicionar_item_pedido():
 
 def test_finalizar_pedido():
     pedido = Pedido()
-    assert pedido.status == "RECEBIDO"
+    assert pedido.status == "CRIADO"
     pedido.finalizar()
     assert pedido.status == "FINALIZADO"
 
