@@ -26,9 +26,8 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pip-audit bandit
 
-      - name: Run Automated Tests
-        run: |
-          pytest tests --maxfail=1 --disable-warnings -q
+      - name: Testes com Pytest
+        run: PYTHONPATH=. pytest tests --maxfail=1 --disable-warnings -q
 
       - name: SAST - Bandit (Static Code Analysis)
         run: |
