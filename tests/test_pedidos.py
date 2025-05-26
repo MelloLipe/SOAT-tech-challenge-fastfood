@@ -30,17 +30,17 @@ def test_criar_pedido(repo):
 def test_adicionar_item_pedido():
     produto = Produto(nome="Suco", descricao="Laranja", preco=6.0, categoria="Bebida")
     pedido = Pedido()
-    item = ItemPedido(
+    pedido.adicionar_item(
         produto_id=produto.id,
         nome=produto.nome,
         preco=produto.preco,
         categoria=produto.categoria,
         quantidade=2
     )
-    pedido.adicionar_item(item)
     assert len(pedido.itens) == 1
     assert pedido.total == 12.0
     assert pedido.itens[0].nome == "Suco"
+
 
 def test_finalizar_pedido():
     pedido = Pedido()

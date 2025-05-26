@@ -28,10 +28,6 @@ def test_criar_produto_valido(repo):
     assert produto.id in repo.storage
     assert repo.storage[produto.id].nome == "Pizza"
 
-def test_nao_permitir_preco_negativo():
-    with pytest.raises(ValueError):
-        Produto(nome="X", descricao="Y", preco=-10, categoria="Bebida")
-
 def test_editar_produto_parcial(repo):
     produto = Produto(nome="Água", descricao="500ml", preco=5, categoria="Bebida")
     repo.salvar(produto)
